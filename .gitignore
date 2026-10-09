@@ -1,0 +1,15 @@
+# Java / Maven
+**/target/
+
+# IDE files
+.metadata/
+**/.classpath
+**/.project
+**/.settings/
+.idea/
+.vscode/
+*.iml
+
+# Local secrets
+**/application-local.properties
+**/.env
