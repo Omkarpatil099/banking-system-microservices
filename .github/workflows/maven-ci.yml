@@ -63,4 +63,4 @@ jobs:
         with:
           context: ./account-service
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/banking-account-service:latest
+          tags: ghcr.io/omkarpatil099/banking-account-service:latest
