@@ -35,7 +35,7 @@ jobs:
 
       - name: Build and test
         working-directory: ${{ matrix.service }}
-        run: mvn -B clean package -DskipTests
+        run: mvn -B clean verify
 
   docker-build:
     name: Build and Publish Account Service Image
