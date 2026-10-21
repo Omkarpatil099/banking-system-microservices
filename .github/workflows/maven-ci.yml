@@ -38,11 +38,29 @@ jobs:
         run: mvn -B clean verify
 
   docker-build:
-    name: Build and Publish Account Service Image
+    name: Build and Publish ${{ matrix.service }} Image
     runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name != 'pull_request'
+
     permissions:
       contents: read
       packages: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - service: account-service
+            image: banking-account-service
+          - service: api-gatewayB
+            image: banking-api-gateway
+          - service: eureka-serverB
+            image: banking-eureka-server
+          - service: transaction-service
+            image: banking-transaction-service
+          - service: user-service
+            image: banking-user-service
 
     steps:
       - name: Checkout repository
@@ -61,6 +79,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./account-service
+          context: ./${{ matrix.service }}
           push: true
-          tags: ghcr.io/omkarpatil099/banking-account-service:latest
+          tags: ghcr.io/${{ github.repository_owner }}/${{ matrix.image }}:latest
